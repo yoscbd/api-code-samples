@@ -53,3 +53,28 @@ function weather_handler()
     }
 
 }
+
+/************* Important note for implementaion *****************
+
+Dont forget to locolize the main script for the plugin\theme
+ and add the "nonce" over there like so
+
+**/
+
+//1. THIS will add the script we would like to use and later locolize
+function wpdocs_theme_name_scripts() {
+	wp_enqueue_style( 'style-name', get_stylesheet_uri() );
+	wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
+
+
+//2. THIS is how we locolize the script and add php variables that will be acceable form js:
+
+  wp_localize_script('understrap-scripts', 'understrap_script_vars', array( //  wp_localize_script('<SCRIPT NAME AS REGISTERED BY WP_ENVOKE>', '<MAIN VARIABLE NAME THAT HOLD ALL OTHER VARS>'
+            'alert' => __('Hey2! You have clicked the button!', 'pippin'), // this is just a sample
+            'ajax_url' => admin_url('admin-ajax.php'), // get the sjax url for ajax service function
+            'nonce' => wp_create_nonce('reg-nonce'), // create the noce to validate any data submited to our site
+            'root_url' => get_site_url(), // site url to be used later both in localhost and live env
+        )
+        );
