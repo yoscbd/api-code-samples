@@ -35,7 +35,7 @@ select('core').getEntityRecords('postType', 'post', {
                 categories: catIDs,
             });
 
-//example 1 END
+//example 1 END.
 
 
 
